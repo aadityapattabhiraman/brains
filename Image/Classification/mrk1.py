@@ -1,3 +1,5 @@
+#!/home/akugyo/Programs/Python/PyTorch/bin/python
+
 from datasets import load_dataset
 import matplotlib.pyplot as plt
 

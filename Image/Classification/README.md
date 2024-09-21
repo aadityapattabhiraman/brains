@@ -1,0 +1,10 @@
+LeNet-5	60K	98.3%  
+AlexNet	60M	63.3%  
+VGGNet	138M	71.3%  
+GoogLeNet	6.8M	74.8%  
+ResNet-50	25.6M	76.2%  
+Inception-v3	23.2M	77.9%  
+DenseNet-161	28.6M	78.4%  
+MobileNet	2.2M	70.6%  
+ShuffleNet	2.3M	71.5%  
+SqueezeNet	1.2M	57.9%  
