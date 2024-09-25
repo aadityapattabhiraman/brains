@@ -17,12 +17,12 @@ transform = transforms.Compose([
 ])
 
 train = datasets.ImageFolder(
-	root="../Datasets/Imagenet-1k/Train/",
+	root="../../Datasets/Imagenet-1k/Train/",
 	transform=transform
 )
 
 test = datasets.ImageFolder(
-	root="../Datasets/Imagenet-1k/Test/",
+	root="../../Datasets/Imagenet-1k/Test/",
 	transform=transform
 )
 
