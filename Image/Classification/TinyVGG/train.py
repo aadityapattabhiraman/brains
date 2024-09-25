@@ -30,7 +30,7 @@ test = datasets.ImageFolder(
 
 class_names = train.classes 
 model = TinyVGG(input_shape=3, hidden_units=10, output_shape=len(class_names)).to(device)
-criterion = config["criterion"]
+criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
 
 train_dataloader = DataLoader(

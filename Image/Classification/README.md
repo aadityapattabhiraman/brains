@@ -1,5 +1,5 @@
 LeNet-5	10.89 15 epochs  
-TinyVGG 9.71
+TinyVGG 9.71  
 AlexNet	60M	63.3%  
 VGGNet	138M	71.3%  
 GoogLeNet	6.8M	74.8%  
