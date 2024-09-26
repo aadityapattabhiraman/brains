@@ -1,14 +1,14 @@
 LeNet-5	10.89 15 epochs  
 TinyVGG 9.71  
-AlexNet	60M	63.3%  
-VGGNet	138M	71.3%  
-GoogLeNet	6.8M	74.8%  
-ResNet-50	25.6M	76.2%  
-Inception-v3	23.2M	77.9%  
-DenseNet-161	28.6M	78.4%  
-MobileNet	2.2M	70.6%  
-ShuffleNet	2.3M	71.5%  
-SqueezeNet	1.2M	57.9%  
+AlexNet	
+VGGNet	
+GoogLeNet	
+ResNet-50	
+Inception-v3	 
+DenseNet-161	
+MobileNet	 
+ShuffleNet	 
+SqueezeNet	 
 
 Traditional Convolutional Neural Networks (CNNs) have laid the foundation for many advancements in deep learning, especially in image processing. Here are some of the most important traditional CNN architectures:
 
