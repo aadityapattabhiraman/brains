@@ -4,14 +4,15 @@ from pathlib import Path
 
 def get_config() -> dict:
 	return {
-		"batch_size": 4096,
+		"batch_size": 256,
 		"num_workers": os.cpu_count(),
 		"epochs": 15,
 		"lr": 10**-4,
 		"model_folder": "weights",
 		"model_basename": "tmodel_",
 		"preload": "latest",
-		"root": "../../Datasets/Imagenet-1k/"
+		"root": "../../Datasets/Imagenet-1k/",
+		"experiment_name": "runs/tmodel"
 	}
 
 def get_weights_file_path(config, epoch: str):

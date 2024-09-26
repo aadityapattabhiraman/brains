@@ -74,7 +74,7 @@ class AlexNet(nn.Module):
 		self.classifier = nn.Sequential(
 			nn.Flatten(),
 			nn.Linear(
-				in_features=256 * 6 * 6,
+				in_features=256 * 5 * 5,
 				out_features=4096,
 			),
 			nn.ReLU(),
@@ -91,9 +91,6 @@ class AlexNet(nn.Module):
 
 	def forward(self, x: torch.Tensor):
 		x = self.block1(x)
-		print(x.shape)
 		x = self.block2(x)
-		print(x.shape)
 		x = self.classifier(x)
-		print(x.shape)
 		return x
