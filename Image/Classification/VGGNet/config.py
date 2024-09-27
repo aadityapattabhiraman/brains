@@ -24,3 +24,8 @@ def latest_weights_file_path(config):
 		return None
 	weight_files.sort()
 	return str(weight_files[-1])
+
+def get_weights_file_path(config, epoch: str):
+	model_folder = f"{config["model_folder"]}"
+	model_filename = f"{config["model_basename"]}{epoch}.pth"
+	return str(Path(".")/model_folder/model_filename)
