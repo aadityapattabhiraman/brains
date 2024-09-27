@@ -8,6 +8,8 @@ class VGGNet(nn.Module):
 	"""
 
 	def __init__(self):
+		super().__init__()
+		
 		self.block1 = nn.Sequential(
 			nn.Conv2d(
 				in_channels=3,

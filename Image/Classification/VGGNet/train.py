@@ -6,7 +6,7 @@ from torch.utils.data import DataLoader
 from torchvision import transforms, datasets
 from pathlib import Path
 from model import VGGNet
-from config import get_config, latest_weights_file_path, get_weights_file_path
+from config import get_config, latest_weights_file_path
 
 
 def get_data(config):
