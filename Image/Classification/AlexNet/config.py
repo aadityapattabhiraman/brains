@@ -22,7 +22,7 @@ def get_weights_file_path(config, epoch: str):
 
 def latest_weights_file_path(config):
 	model_folder = f"{config["model_folder"]}"
-	model_filename = f"{config["model_basename"]}"
+	model_filename = f"{config["model_basename"]}*"
 	weight_files = list(Path(model_folder).glob(model_filename))
 
 	if len(weight_files) == 0:

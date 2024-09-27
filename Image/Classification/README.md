@@ -1,6 +1,6 @@
 LeNet-5	10.89 15 epochs  
 TinyVGG 9.71  
-AlexNet	  
+AlexNet 51.13  
 VGGNet	  
 GoogLeNet	 
 ResNet-50	  

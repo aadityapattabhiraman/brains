@@ -19,6 +19,7 @@ class AlexNet(nn.Module):
 				stride=4,
 			),
 			nn.ReLU(),
+			nn.LocalResponseNorm(2, alpha=1e-4, beta=0.75, k=1),
 			nn.MaxPool2d(
 				kernel_size=3,
 				padding=0,
@@ -28,10 +29,11 @@ class AlexNet(nn.Module):
 				in_channels=96,
 				out_channels=256,
 				kernel_size=5,
-				padding=1,
+				padding="same",
 				stride=1
 			),
 			nn.ReLU(),
+			nn.LocalResponseNorm(2, alpha=1e-4, beta=0.75, k=1),
 			nn.MaxPool2d(
 				kernel_size=3,
 				padding=0,
@@ -44,7 +46,7 @@ class AlexNet(nn.Module):
 				in_channels=256,
 				out_channels=384,
 				kernel_size=3,
-				padding=1,
+				padding="same",
 				stride=1,
 			),
 			nn.ReLU(),
@@ -52,7 +54,7 @@ class AlexNet(nn.Module):
 				in_channels=384,
 				out_channels=384,
 				kernel_size=3,
-				padding=1,
+				padding="same",
 				stride=1,
 			),
 			nn.ReLU(),
@@ -60,7 +62,7 @@ class AlexNet(nn.Module):
 				in_channels=384,
 				out_channels=256,
 				kernel_size=3,
-				padding=1,
+				padding="same",
 				stride=1,
 			),
 			nn.ReLU(),
@@ -74,15 +76,17 @@ class AlexNet(nn.Module):
 		self.classifier = nn.Sequential(
 			nn.Flatten(),
 			nn.Linear(
-				in_features=256 * 5 * 5,
+				in_features=256 * 6 * 6,
 				out_features=4096,
 			),
 			nn.ReLU(),
+			nn.Dropout(p=0.5),
 			nn.Linear(
 				in_features=4096,
 				out_features=4096,
 			),
 			nn.ReLU(),
+			nn.Dropout(p=0.5),
 			nn.Linear(
 				in_features=4096,
 				out_features=1000,
