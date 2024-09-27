@@ -2,8 +2,10 @@
 
 import torch
 import warnings
+from torch import nn
 from torch.utils.data import DataLoader
 from torchvision import transforms, datasets
+from tqdm import tqdm
 from pathlib import Path
 from model import VGGNet
 from config import get_config, latest_weights_file_path

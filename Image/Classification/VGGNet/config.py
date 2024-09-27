@@ -4,7 +4,7 @@ from pathlib import Path
 
 def get_config() -> dict:
 	return {
-		"batch_size": 256,
+		"batch_size": 64,
 		"num_workers": os.cpu_count(),
 		"epochs": 15,
 		"lr": 10**-4,

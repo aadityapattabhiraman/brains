@@ -1,7 +1,7 @@
 LeNet-5	10.89 15 epochs  
 TinyVGG 9.71  
 AlexNet 51.13  
-VGGNet	  
+VGGNet Apparently 3 hrs per epoch not sure whether to proceed or not  
 GoogLeNet	 
 ResNet-50	  
 Inception-v3	   

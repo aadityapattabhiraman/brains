@@ -9,7 +9,7 @@ class VGGNet(nn.Module):
 
 	def __init__(self):
 		super().__init__()
-		
+
 		self.block1 = nn.Sequential(
 			nn.Conv2d(
 				in_channels=3,
@@ -144,7 +144,7 @@ class VGGNet(nn.Module):
 		self.classifier = nn.Sequential(
 			nn.Flatten(),
 			nn.Linear(
-				in_features=512,
+				in_features=512 * 7 * 7,
 				out_features=4096,
 			),
 			nn.ReLU(),
@@ -166,3 +166,4 @@ class VGGNet(nn.Module):
 		x = self.block4(x)
 		x = self.block5(x)
 		x = self.classifier(x)
+		return x
