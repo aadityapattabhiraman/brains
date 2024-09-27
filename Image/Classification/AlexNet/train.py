@@ -83,7 +83,7 @@ def train_model(config):
         model.load_state_dict(state["model_state_dict"])
         initial_epoch = state["epoch"] + 1
         optimizer.load_state_dict(state["optimizer_state_dict"])
-        global_Step = state["global_step"]
+        global_step = state["global_step"]
 
     else:
         print("Starting training from scratch")
