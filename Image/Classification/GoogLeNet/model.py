@@ -9,13 +9,22 @@ class Inception(nn.Module):
 	Model architecture for Inception block
 	"""
 
-	def __init__(self, in_channels):
+	def __init__(
+		self, 
+		in_channels: int, 
+		size_1x1: int, 
+		reduce_3x3: int, 
+		size_3x3: int, 
+		reduce_5x5: int, 
+		size_5x5: int, 
+		proj_size: int) -> None:
+
 		super().__init__()
 
 		self.branch_1 = nn.Sequential(
 			nn.Conv2d(
-				in_channels,
-				out_channels=64,
+				in_channels=in_channels,
+				out_channels=size_1x1,
 				kernel_size=1,
 			),
 			nn.ReLU(),
@@ -23,14 +32,14 @@ class Inception(nn.Module):
 
 		self.branch_2 = nn.Sequential(
 			nn.Conv2d(
-				in_channels,
-				out_channels=96,
+				in_channels=in_channels,
+				out_channels=reduce_3x3,
 				kernel_size=1,
 			),
 			nn.ReLU(),
 			nn.Conv2d(
-				in_channels=96,
-				out_channels=128,
+				in_channels=reduce_3x3,
+				out_channels=size_3x3,
 				kernel_size=3,
 				padding=1,
 			),
@@ -39,16 +48,16 @@ class Inception(nn.Module):
 
 		self.branch_3 = nn.Sequential(
 			nn.Conv2d(
-				in_channels,
-				out_channels=16,
+				in_channels=in_channels,
+				out_channels=reduce_5x5,
 				kernel_size=1,
 			),
 			nn.ReLU(),
 			nn.Conv2d(
-				in_channels=16,
-				out_channels=32,
+				in_channels=reduce_5x5,
+				out_channels=size_5x5,
 				kernel_size=5,
-				padding=2
+				padding=2,
 			),
 			nn.ReLU(),
 		)
@@ -60,8 +69,8 @@ class Inception(nn.Module):
 				padding=1,
 			),
 			nn.Conv2d(
-				in_channels,
-				out_channels=32,
+				in_channels=in_channels,
+				out_channels=proj_size,
 				kernel_size=1,
 			),
 			nn.ReLU(),
@@ -69,17 +78,11 @@ class Inception(nn.Module):
 
 	def forward(self, x):
 		x_1 = self.branch_1(x)
-		print(x_1.shape)
 		x_2 = self.branch_2(x)
-		print(x_2.shape)
 		x_3 = self.branch_3(x)
-		print(x_3.shape)
 		x_4 = self.branch_4(x)
-		print(x_4.shape)
 
-		output = torch.cat([x_1, x_2, x_3, x_4], 1)
-		print(output.shape)
-		return output
+		return torch.cat([x_1, x_2, x_3, x_4], 1)
 
 
 class GoogLeNet(nn.Module):
@@ -102,7 +105,7 @@ class GoogLeNet(nn.Module):
 			nn.MaxPool2d(
 				kernel_size=3,
 				stride=2,
-				padding=1,
+				ceil_mode=True,
 			),
 			nn.Conv2d(
 				in_channels=64,
@@ -114,68 +117,76 @@ class GoogLeNet(nn.Module):
 				in_channels=64,
 				out_channels=192,
 				kernel_size=3,
+				padding=1,
 			),
 			nn.ReLU(),
 			nn.MaxPool2d(
 				kernel_size=3,
 				stride=2,
-				padding=1,
+				ceil_mode=True,
 			),
 		)
 
-		self.inception_1 = Inception(192)
-		self.inception_2 = Inception(256)
+		self.inception_3a = Inception(192, 64, 96, 128, 16, 32, 32)
 
-		self.inception_3 = nn.Sequential(
+		self.inception_3b = nn.Sequential(
+			Inception(256, 128, 128, 192, 32, 96, 64),
 			nn.MaxPool2d(
 				kernel_size=3,
 				stride=2,
-				padding=1,
+				ceil_mode=True,
 			),
-			Inception(480),
 		)
 
-		self.inception_4 = Inception(512)
-		self.inception_5 = Inception(512)
-		self.inception_6 = Inception(512)
-		self.inception_7 = Inception(528)
+		self.inception_4a = Inception(480, 192, 96, 208, 16, 48, 64)
 
-		self.inception_8 = nn.Sequential(
+		self.inception_4b = Inception(512, 160, 112, 224, 24, 64, 64)
+
+		self.inception_4c = Inception(512, 128, 128, 256, 24, 64, 64)
+
+		self.inception_4d = Inception(512, 112, 144, 288, 32, 64, 64)
+
+		self.inception_4e = nn.Sequential(
+			Inception(528, 256, 160, 320, 32, 128, 128),
 			nn.MaxPool2d(
 				kernel_size=3,
 				stride=2,
-				padding=1,
+				ceil_mode=True,
 			),
-			Inception(832),
 		)
 
-		self.inception_9 = Inception(832)
+		self.inception_5a = Inception(832, 256, 160, 320, 32, 128, 128)
+
+		self.inception_5b = Inception(832, 384, 192, 384, 48, 128, 128)
 
 		self.done = nn.Sequential(
-			nn.AdaptiveAvgPool2d(
-				(1, 1)
+			nn.AvgPool2d(
+				kernel_size=7,
+				stride=1,
 			),
 			nn.Flatten(),
-			nn.Dropout(p=0.5),
+			nn.Dropout(p=0.4),
 			nn.Linear(
-				1024,
-				1000))
-
+				in_features=1024,
+				out_features=1000,
+			),
+			nn.Softmax(dim=1),
+		)
 		
 	def forward(self, x):
 		x = self.initial(x)
-		x = self.inception_1(x)
-		x = self.inception_2(x)
-		x = self.inception_3(x)
-		x = self.inception_4(x)
-		x = self.inception_5(x)
-		x = self.inception_6(x)
-		x = self.inception_7(x)
-		x = self.inception_8(x)
-		x = self.inception_9(x)
+		x = self.inception_3a(x)
+		x = self.inception_3b(x)
+		x = self.inception_4a(x)
+		x = self.inception_4b(x)
+		x = self.inception_4c(x)
+		x = self.inception_4d(x)
+		x = self.inception_4e(x)
+		x = self.inception_5a(x)
+		x = self.inception_5b(x)
 		x = self.done(x)
-		return x
 
+		return x
 
 if __name__ == "__main__":
 	img = torch.randn(8, 3, 224, 224).to("cuda")
