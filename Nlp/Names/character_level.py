@@ -1,5 +1,6 @@
 #!/home/akugyo/Programs/Python/torch/bin/python
 
+
 import torch
 from torch import nn
 from torch.utils.data import Dataset
@@ -54,12 +55,12 @@ class Bigram(nn.Module):
     def get_block_size(self):
         return 1
 
-    def forward(self, isx, targets=None):
+    def forward(self, idx, targets=None):
         logits = self.logits[idx]
         loss = None
 
         if targets is not None:
-            loss = nn.CrossEntropy(logits.vire(-1, logits.size(-1)), targets.view(-1),
+            loss = nn.CrossEntropyLoss(logits.vire(-1, logits.size(-1)), targets.view(-1),
                                    ignore_index=-1)
 
         return logits, loss
