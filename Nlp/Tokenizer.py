@@ -12,71 +12,94 @@ print(tokens)
 # Unicode characters take upto 4 bytes, whereas others take max of 1 byte
 print("length:", len(tokens))
 
-
 def get_stats(ids):
+    """
+    Get the frequency of each token pair in the given list of tokens.
+    """
     counts = {}
-
     for pair in zip(ids, ids[1:]):
         counts[pair] = counts.get(pair, 0) + 1
     return counts
 
-stats = get_stats(tokens)
-print("Tokens: ---")
-# print(stats)
-# print(sorted(((v, k)for k, v in stats.items()), reverse=True))
 
-
-def replace_encodings(ids, idx):
-    key = 256
-    end = 278
-
+def replace_encodings(ids, idx, merge):
+    """
+    Replace the most frequent pair with a new token, based on the current encoding stats.
+    """
     merges = {}
     changes_made = False
-    for i in range(key, end + 1):
-        a, b = max(idx, key=idx.get)
-
-        j = 0
+    for a, b in merge.items():
         new_ids = []
+        j = 0
         while j < len(ids) - 1:
-
-            if ids[j] == a and ids[j+1] == b:
-                changes_made = True
-                new_ids.append(i)
+            # If the pair (a, b) is found, replace it with the new token `i`.
+            if ids[j] == a and ids[j + 1] == b:
+                new_ids.append(b)
                 j += 1
-
             else:
                 new_ids.append(ids[j])
-
             j += 1
 
-        if changes_made == True:
-            idx = get_stats(new_ids)
+        if new_ids != ids:
+            changes_made = True
             ids = new_ids
-            changes_made = False
-            merges[(a, b)] = i
-
-    return (ids, idx, merges)
+            merges[(a, b)] = b
+    return ids, merges
 
 
-tokens, stats, merge = replace_encodings(tokens, stats)
-print("---")
-print("Tokens:", tokens)
-print("---")
-print("Stats:", stats)
+def encode(text, merge):
+    """
+    Encode the text using byte pair encoding (BPE).
+    - Convert the text to a list of token IDs (bytes).
+    - Merge frequent pairs iteratively.
+    """
+    # Convert the text into a list of token IDs (bytes)
+    tokens = list(text.encode('utf-8'))
+    while len(tokens) >= 2:
+        stats = get_stats(tokens)  # Get the frequency of pairs in the tokens
+        # Find the pair with the smallest cost that hasn't already been merged
+        pair = min(stats, key=lambda p: merge.get(p, float("inf")))
 
-def encode(text):
-    tokens = list(text.encode("utf-8"))
-    stats = get_stats(tokens)
+        # If no more pairs can be merged, stop
+        if pair not in merge:
+            break
 
-    tokens, stats, merge = replace_encodings(tokens, stats)
-    return (tokens, stats, merge)
+        # Perform the replacement
+        tokens, merge = replace_encodings(tokens, stats, merge)
 
-vocab = {idx: bytes([idx]) for idx in range(256)}
+    return tokens, merge
+
+
+def decode(ids, vocab):
+    """
+    Decode the token IDs back into text.
+    - Reconstruct the original bytes using the `vocab`.
+    """
+    # Convert token IDs back to bytes using the vocab
+    tokens = b"".join(vocab[idx] for idx in ids)
+    # Decode the byte sequence into a UTF-8 string
+    text = tokens.decode("utf-8", errors="replace")
+    return text
+
+
+# Example usage:
+
+# Initialize vocab as a simple dictionary mapping byte values to their respective single-byte characters
+vocab = {i: bytes([i]) for i in range(256)}
+
+# Define your merges here (this would be generated during training)
+merge = {}
+
+# Encode text
+text = "hello world!"
+encoded_tokens, merge = encode(text, merge)
+
+print("Encoded Tokens:", encoded_tokens)
+
+# Create vocab for merging (simulating merge behavior)
 for (p0, p1), idx in merge.items():
     vocab[idx] = vocab[p0] + vocab[p1]
 
-
-def decode(ids):
-    tokens = b"".join(vocab[idx] for idx in ids)
-    text = tokens.decode("utf-8", errors="replace")
-    return text
+# Decode text
+decoded_text = decode(encoded_tokens, vocab)
+print("Decoded Text:", decoded_text)
