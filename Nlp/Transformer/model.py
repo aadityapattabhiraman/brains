@@ -125,3 +125,89 @@ class FeedForwardBlock(nn.Module):
 
     def forward(self, x: torch.Tensor):
         return self.feed_forward(x)
+
+
+class MultiHeadAttentionBlock(nn.Module):
+    """
+    Defines multi head attention.
+    Create query, key, value.
+    Pass them into their respctive linear layers.
+    Change the view to split the matrices into smaller matrices.
+    Apply attention.
+    Pass it to linear and send it out.
+    """
+
+    def __init__(self, d_model: int, h: int, dropout: float) -> None:
+        """
+        Takes 2 arguments: d_model(int), h(int) number of heads,
+        dropout(float)
+        """
+
+        super().__init__()
+        self.d_model = d_model
+        self.h = h
+        assert d_model % h ==0, "d_model not divisible by h"
+
+        self.d_k = d_model // h
+        self.w_q = nn.Linear(d_model, d_model)
+        self.w_k = nn.Linear(d_model, d_model)
+        self.w_v = nn.Linear(d_model, d_model)
+        self.w_o = nn.Linear(d_model, d_model)
+
+        self.dropout = dropout
+
+    @staticmethod
+    def attention(query, key, value, mask, dropout: nn.Dropout):
+        """
+        (Query * key) / root(d_k).
+        Apply mask if available.
+        Apply softmax.
+        Apply dropout if available.
+        """
+
+        d_k = query.shape[-1]
+        # (batch, h, seq_le, d_k) -> (batch, h, seq_le, seq_len)
+        attention_scores = (query @ key.transpose(-2, -1)) / math.sqrt(d_k)
+
+        if mask is not None:
+            attention_scores.masked_fill(mask == 0, -1e9)
+
+        attention_scores = attention_scores.softmax(dim=-1)
+
+        if dropout is not None:
+            attention_scores = dropout(attention_scores)
+
+        return (attention_scores @ values), attention_scores
+
+    def forward(self, q, k ,v, mask):
+        """
+        Apply linear layers for k, q, v.
+        Apply attention.
+        Apply linear layer after attention and send output.
+        """
+
+        # Apply linear layers
+        query = self.w_k(q)
+        key = self.w_k(k)
+        values = self.w_v(v)
+
+        # (batch, seq_len, d_model) -> (batch, seq_len, h, d_k) ->
+        # (batch, h, seq_len, d_k)
+        # Split matrics into smaller matrices
+        query = query.view(query.shape[0], query.shape[1], self.h, self.d_k
+                           ).transpose(1, 2)
+        key = key.view(kew.shape[0], key.shape[1], self.h, self.d_k
+                       ).transpose(1, 2)
+        value = value.view(value.shape[0], value.shape[1], self.h, self.d_k
+                           ).transpose(1, 2)
+
+        # Apply attention
+        x, self.attention_scores = MultiHeadAttentionBlock.attention(
+            query, key, value, mask, self.dropout)
+        # (batch, h, seq_len, d_k) -> (batch, seq_len, h, d_k) ->
+        # (batch, seq_lem, d_model)
+        # # Change shape to pass it to the final layer
+        x = x.transpose(1, 2).contiguous().view(x.shape[0], -1, self.h
+                                                * self.d_k)
+
+        return self.w_o(x)
