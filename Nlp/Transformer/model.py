@@ -55,7 +55,7 @@ class PositionalEncoding(nn.Module):
         # encoding
         positional_encoding = torch.zeros(seq_len, d_model)
         # Create a vector of shape (seq_len, 1)
-        position = torch.arange(0, seq_len, stype=torch.float).unsqueeze(1)
+        position = torch.arange(0, seq_len, dtype=torch.float).unsqueeze(1)
         div_term = torch.exp(torch.arange(0, d_model, 2).float()
                              * (-math.log(10000.0) / d_model))
         # Apply sin to even positions and cos to odd positions
@@ -281,3 +281,76 @@ class Encoder(nn.Module):
         for layer in self.layers:
             x = layer(x, mask)
         return self.norm(x)
+
+
+class DecoderBlock(nn.Module):
+    """
+    Create all subblock that are required for deccoder.
+    """
+
+    def __init__(self, self_attention_block: MultiHeadAttentionBlock,
+                 cross_attention_block: MultiHeadAttentionBlock,
+                 feed_forward_block: FeedForwardBlock, dropout: float) -> None:
+        """
+        Takes 3 arguments: self_attention_block, cross_attention_block,
+        feed_forward_block.
+        """
+
+        super().__init__()
+        self.self_attention_block = self_attention_block
+        self.cross_attention_block = cross_attention_block
+        self.feed_forward_block = feed_forward_block
+        self.residual_connections = nn.ModuleList([ResidualConnections(dropout)
+                                                   for _ in range(3)])
+
+    def forward(self, x, encoder_output, src_mask, tgt_mask):
+        """
+        Defines 3 skip forward connections.
+        """
+
+        x = self.residual_connections[0](x, lambda x:
+                                self.self_attention_block(x, x, x, tgt_mask))
+        x = self.residual_connections[1](x, lambda x:
+                                         self.cross_attention_block(
+                                x, encoder_output, encoder_output, src_mask))
+        x = self.residual_connections[2](x, self.feed_forward_block)
+        return x
+
+
+class Decoder(nn.Module):
+    """
+    Put togeather the decoder block.
+    """
+
+    def __init__(self, layers: nn.ModuleList) -> None:
+        """
+        Takes 1 argument: layers.
+        """
+
+        super().__init__()
+        self.layers = layers
+        self.norm = LayerNormalization()
+
+    def forward(self, x, encoder_output, src_mask, tgt_mask):
+
+        for layer in self.layers:
+            x = layer(x, encoder_output, src_mask, tgt_mask)
+        return self.norm(x)
+
+
+class ProjectionLayer(nn.Module):
+    """
+    Maps the output given by decoder to that of the vocabulary.
+    """
+
+    def __init__(self, d_model: int, vocab_size: int) -> None:
+        """
+        Takes 2 arguments: d_model, vocab_size.
+        """
+
+        super().__init__()
+        self.proj = nn.Linear(d_model, vocab_size)
+
+    def forward(self, x):
+        # (batch, seq_len, d_model) -> (batch, seq_len, vocab_size)
+        return torch.log_softmax(self.proj(x), dim=-1)
