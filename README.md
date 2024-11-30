@@ -29,7 +29,7 @@ A small repo for the projects that are done for the brains
 **Authors**: Christian Szegedy, Wei Liu, Yangqing Jia, et al.  
 **Goal**: Introduced the **Inception module**, using parallel convolution filters of different sizes and reducing computational complexity with 1x1 convolutions.
 
-### 7. [ResNet (2015)](https://arxiv.org/abs/1512.03385)  
+### 7. *[ResNet (2015)](https://arxiv.org/abs/1512.03385)  
 **Authors**: Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun  
 **Goal**: Introduced **residual connections** (skip connections) to enable the training of much deeper networks, solving the vanishing gradient problem.
 
