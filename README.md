@@ -121,65 +121,72 @@ A small repo for the projects that are done for the brains
 **Authors**: Yu Sun, Shuohuan Wang, Yiming Cui, et al.  
 **Goal**: Introduced **ERNIE**, a knowledge-enhanced pretraining model that incorporates world knowledge into pretraining through structured knowledge graphs, improving performance on tasks that require external knowledge.
 
-## 30. [T5: Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer (2020)](https://arxiv.org/abs/1910.10683)  
+## 30. [RoBERTa: A Robustly Optimized BERT Pretraining Approach (2019)](https://arxiv.org/abs/1907.11692)  
+**Authors**: Yinhan Liu, Myle Ott, Naman Goyal, et al.  
+**Goal**: Introduced **RoBERTa**, a variant of BERT that improves pretraining by removing the Next Sentence Prediction task, training with more data, and using larger batch sizes, achieving state-of-the-art performance on several benchmarks.
+
+## 31. [T5: Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer (2020)](https://arxiv.org/abs/1910.10683)  
 **Authors**: Colin Raffel, Noam Shazeer, Adam Roberts, et al.  
 **Goal**: Proposed **T5** (Text-to-Text Transfer Transformer), a unified framework where every NLP problem is cast as a text generation task, achieving state-of-the-art results on various benchmarks.
 
-## 31. [EfficientNet-Lite (2020)](https://arxiv.org/abs/2004.07664)  
+## 32. [EfficientNet-Lite (2020)](https://arxiv.org/abs/2004.07664)  
 **Authors**: Mingxing Tan, Ruoming Pang, Quoc V. Le  
 **Goal**: An extension of **EfficientNet**, optimized for edge devices, providing a more efficient version of the original EfficientNet for mobile and embedded systems.
 
-## 32. [Reformer: The Efficient Transformer (2020)](https://arxiv.org/abs/2001.04451)  
+## 33. [Reformer: The Efficient Transformer (2020)](https://arxiv.org/abs/2001.04451)  
 **Authors**: Nikita Shlezinger, et al.  
 **Goal**: Proposed **Reformer**, a transformer model with efficient memory usage and reduced computational complexity, using locality-sensitive hashing (LSH) to speed up attention mechanisms.
 
-## 33. [DetectoRS (2020)](https://arxiv.org/abs/2006.02334)  
+## 34. [DetectoRS (2020)](https://arxiv.org/abs/2006.02334)  
 **Authors**: Huizhong Chen, Zhiqiang Wei, Jun Zhang, et al.  
 **Goal**: Proposed the **recursive feature pyramid** and **dynamic convolution** for improved object detection, achieving state-of-the-art results on benchmark datasets.
 
-## 34. [EfficientDet (2020)](https://arxiv.org/abs/1911.09070)  
+## 35. [EfficientDet (2020)](https://arxiv.org/abs/1911.09070)  
 **Authors**: Mingxing Tan, Ruoming Pang, Quoc V. Le  
 **Goal**: Introduced an efficient and scalable framework for object detection that leverages **compound scaling** for both the backbone and detection heads.
 
-## 35. [DeepLabv3+ (2020)](https://arxiv.org/abs/1802.02611)  
+## 36. [DeepLabv3+ (2020)](https://arxiv.org/abs/1802.02611)  
 **Authors**: Liang-Chieh Chen, George Papandreou, Ian Kokkinos, et al.  
 **Goal**: Improved **panoptic segmentation** by incorporating **atrous separable convolutions**, enhancing segmentation accuracy on complex images.
 
-## 36. [Longformer: The Long-Document Transformer (2020)](https://arxiv.org/abs/2004.05150)  
+## 37. [Longformer: The Long-Document Transformer (2020)](https://arxiv.org/abs/2004.05150)  
 **Authors**: Iz Beltagy, Matthew E. Peters, Arman Cohan  
 **Goal**: Introduced **Longformer**, a transformer-based model optimized for long documents, employing efficient sliding window attention to handle inputs far beyond the usual transformer context window.
 
-## 37. [DETR: End-to-End Object Detection with Transformers (2020)](https://arxiv.org/abs/2005.12872)  
+## 38. [RegNet (2020)](https://arxiv.org/abs/2003.13678)  
+**Authors**: Xingyi Zhou, Jifeng Dai, Xialei Liu, et al.  
+**Goal**: Proposed a systematic approach to designing efficient CNN architectures, using **regularized evolutionary methods** to explore optimal designs for scalable networks.
+
+## 39. [DETR: End-to-End Object Detection with Transformers (2020)](https://arxiv.org/abs/2005.12872)  
 **Authors**: Nicolas Carion, Francisco Massa, Gabriel Synnaeve, et al.  
 **Goal**: Introduced **DETR**, a transformer-based architecture for object detection, eliminating the need for hand-crafted region proposals or post-processing, achieving end-to-end object detection.
 
-## 38. [Turing-NLG: A 17-Billion-Parameter Language Model by Microsoft (2020)](https://arxiv.org/abs/2002.11903)  
+## 40. [Turing-NLG: A 17-Billion-Parameter Language Model by Microsoft (2020)](https://arxiv.org/abs/2002.11903)  
 **Authors**: Microsoft Research  
 **Goal**: Presented **Turing-NLG**, a 17-billion-parameter language model that set new records in natural language generation tasks, such as story generation, summarization, and question-answering, pushing the limits of scale in NLP models.
 
-## 39. [Swin Transformer (2021)](https://arxiv.org/abs/2103.14030)  
-**Authors**: Ze Liu, et al.  
-**Goal**: Introduced **Swin Transformer**, a hierarchical vision transformer that uses a shifted window approach for efficient computation, achieving state-of-the-art results in image classification and dense prediction tasks.
-
-## 40. [Swin-UNETR (2021)](https://arxiv.org/abs/2105.05537)  
-**Authors**: Yihao Liu, et al.  
-**Goal**: A **Swin Transformer-based architecture** for medical image segmentation, showing how transformers can be adapted for fine-grained segmentation tasks.
-
-## 41. [RegNet (2020)](https://arxiv.org/abs/2003.13678)  
-**Authors**: Xingyi Zhou, Jifeng Dai, Xialei Liu, et al.  
-**Goal**: Proposed a systematic approach to designing efficient CNN architectures, using **regularized evolutionary methods** to explore optimal designs for scalable networks.
+## 41. [GPT-3: Language Models are Few-Shot Learners (2020)](https://arxiv.org/abs/2005.14165)  
+**Authors**: Tom B. Brown, Benjamin Mann, Nick Ryder, et al.  
+**Goal**: Proposed **GPT-3**, a large-scale autoregressive language model with 175 billion parameters. It demonstrated strong few-shot learning capabilities, achieving impressive results on a variety of NLP tasks with minimal fine-tuning.
 
 ## 42. [YOLOv4 (2020)](https://arxiv.org/abs/2004.10934)  
 **Authors**: Alexey Bochkovskiy, Chien-Yao Wang, Hong-Yuan Mark Liao  
 **Goal**: Enhanced the original YOLO architecture, adding a range of improvements including better performance on small objects and more effective use of multi-scale predictions.
 
-## 43. [RoBERTa: A Robustly Optimized BERT Pretraining Approach (2019)](https://arxiv.org/abs/1907.11692)  
-**Authors**: Yinhan Liu, Myle Ott, Naman Goyal, et al.  
-**Goal**: Introduced **RoBERTa**, a variant of BERT that improves pretraining by removing the Next Sentence Prediction task, training with more data, and using larger batch sizes, achieving state-of-the-art performance on several benchmarks.
+## 43. [Swin Transformer (2021)](https://arxiv.org/abs/2103.14030)  
+**Authors**: Ze Liu, et al.  
+**Goal**: Introduced **Swin Transformer**, a hierarchical vision transformer that uses a shifted window approach for efficient computation, achieving state-of-the-art results in image classification and dense prediction tasks.
 
-## 44. [GPT-3: Language Models are Few-Shot Learners (2020)](https://arxiv.org/abs/2005.14165)  
-**Authors**: Tom B. Brown, Benjamin Mann, Nick Ryder, et al.  
-**Goal**: Proposed **GPT-3**, a large-scale autoregressive language model with 175 billion parameters. It demonstrated strong few-shot learning capabilities, achieving impressive results on a variety of NLP tasks with minimal fine-tuning.
+## 44. [Swin-UNETR (2021)](https://arxiv.org/abs/2105.05537)  
+**Authors**: Yihao Liu, et al.  
+**Goal**: A **Swin Transformer-based architecture** for medical image segmentation, showing how transformers can be adapted for fine-grained segmentation tasks.
+
+
+
+
+
+
+
 
 
 
