@@ -105,11 +105,11 @@ A small repo for the projects that are done for the brains
 **Authors**: Alexander Kirillov, Ross B. Girshick, Kaiming He, et al.  
 **Goal**: Proposed a **Panoptic Feature Pyramid Network (FPN)** that unified **semantic segmentation** and **instance segmentation** into a single framework, improving panoptic segmentation performance.
 
-## 26. [UPSNet (2019)](https://arxiv.org/abs/1901.07404)  
+## 26. [UPSNet (2019)](https://arxiv.org/abs/1901.03784)  
 **Authors**: Shuang Li, Yuliang Liu, Zhe Wang, et al.  
 **Goal**: A unified framework for **panoptic segmentation**, integrating high-quality instance and semantic segmentation tasks into a single model.
 
-## 27. [YOLACT (2019)](https://arxiv.org/abs/1901.02128)  
+## 27. [YOLACT (2019)](https://arxiv.org/abs/1904.02689)  
 **Authors**: Daniel Bolya, Chongyi Li, Yanghao Li, et al.  
 **Goal**: Introduced a **fast instance segmentation framework** that generates segmentation masks efficiently using a **prototype generation network**.
 
@@ -129,7 +129,7 @@ A small repo for the projects that are done for the brains
 **Authors**: Colin Raffel, Noam Shazeer, Adam Roberts, et al.  
 **Goal**: Proposed **T5** (Text-to-Text Transfer Transformer), a unified framework where every NLP problem is cast as a text generation task, achieving state-of-the-art results on various benchmarks.
 
-## 32. [EfficientNet-Lite (2020)](https://arxiv.org/abs/2004.07664)  
+## 32. [EfficientNet-Lite (2020)](https://arxiv.org/abs/2009.07409)  
 **Authors**: Mingxing Tan, Ruoming Pang, Quoc V. Le  
 **Goal**: An extension of **EfficientNet**, optimized for edge devices, providing a more efficient version of the original EfficientNet for mobile and embedded systems.
 
