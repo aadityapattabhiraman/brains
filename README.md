@@ -5,6 +5,8 @@ A small repo for the projects that are done for the brains
 
 ---
 
+### Currently doing R-CNN for Object detection
+
 ### 1. [LeNet-5 (1998)](https://ieeexplore.ieee.org/document/726791)  
 **Authors**: Yann LeCun, Léon Bottou, Yoshua Bengio, Patrick Haffner  
 **Goal**: Introduced one of the first convolutional neural networks (CNNs) for digit recognition on the MNIST dataset, laying the foundation for modern CNNs.
@@ -29,7 +31,7 @@ A small repo for the projects that are done for the brains
 **Authors**: Christian Szegedy, Wei Liu, Yangqing Jia, et al.  
 **Goal**: Introduced the **Inception module**, using parallel convolution filters of different sizes and reducing computational complexity with 1x1 convolutions.
 
-### 7. *[ResNet (2015)](https://arxiv.org/abs/1512.03385)  
+### 7. [ResNet (2015)](https://arxiv.org/abs/1512.03385)  
 **Authors**: Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun  
 **Goal**: Introduced **residual connections** (skip connections) to enable the training of much deeper networks, solving the vanishing gradient problem.
 
